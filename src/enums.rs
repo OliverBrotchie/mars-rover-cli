@@ -23,7 +23,7 @@ impl RoverErr {
         match input {
             // returns ok if there are no characters left in the string
             Ok((s, t)) if s.is_empty() => Ok(t),
-            _ => Err(RoverErr::Parse(ParsingErr::UnexpectedToken, line_index)),
+            _ => Err(RoverErr::Parse(ParsingErr::UnexpectedToken, line_index)), // TODO: improve error by displaying the position of the unexpected token
         }
     }
 }
@@ -51,6 +51,7 @@ impl Display for ParsingErr {
 
 impl Display for RoverErr {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Generate a pretty error message for the different errors that can occur.
         let (msg, e) = match self {
             RoverErr::Opening(e) => ("opening the instructions file", e),
             RoverErr::Reading(e) => ("reading in the instructions file", e),

@@ -23,7 +23,8 @@ impl Rover {
         }
     }
 
-    pub fn execute_commands(
+    /// Execute a given set of instructions
+    pub fn execute_instructions(
         mut self,
         instructions: Vec<Instruction>,
         boundery: Option<Coordinate>,
@@ -82,8 +83,9 @@ impl RoverControlSatellite {
             .into_iter()
             .enumerate()
             .map(|(index, ((coordinates, direction), instructions))| {
+                // The ID of the rover should start from one
                 Rover::new(index + 1, coordinates, direction)
-                    .execute_commands(instructions, (!unbounded).then(|| bounderies))
+                    .execute_instructions(instructions, (!unbounded).then(|| bounderies))
             })
             .collect()
     }
@@ -151,7 +153,7 @@ mod rover_module {
         }
 
         #[cfg(test)]
-        mod execute_commands {
+        mod execute_instructions {
 
             use super::Rover;
             use crate::enums::{Direction, Instruction};
@@ -159,7 +161,7 @@ mod rover_module {
             #[test]
             fn valid_input_with_all_directions() {
                 let rover = Rover::new(0, (0, 0), Direction::North);
-                let result = rover.execute_commands(
+                let result = rover.execute_instructions(
                     vec![
                         Instruction::Move,
                         Instruction::Right,
@@ -180,7 +182,7 @@ mod rover_module {
             fn crosses_boundery() {
                 let rover = Rover::new(0, (0, 0), Direction::North);
                 let result = rover
-                    .execute_commands(vec![Instruction::Left, Instruction::Move], Some((5, 5)));
+                    .execute_instructions(vec![Instruction::Left, Instruction::Move], Some((5, 5)));
                 assert!(result.is_err());
             }
         }

@@ -34,7 +34,8 @@ rover-cli --help
 ## 💭 Code Choices
 
  - `--unbounded` command flag is included to allow to the rover to exit the plateau.
- - `isize` is used to represent co-ordinates to allow the rover to pass (0, 0).
+ - `isize` is used to represent co-ordinates to allow the rover to pass `(0, 0)`.
+ - `Option<Coordinate>` is used to convey whether the rover is allowed to exit the plateau.
  - `fs::read_to_string` is used for simplicity over the more performant but more complex `BufReader`.
  - `RoverControlSatellite` is used for themeatic effect!
 
@@ -48,7 +49,7 @@ cargo test
 
 ### Testing Approach
 
-Unit tests that cover basic functionality and possible branches are included, however as this is a coding exercise, 100% coverage has not been aimed for. 
+Unit tests that cover basic functionality and possible branches are included, however, as this is a coding exercise, complete coverage has not been aimed for. 
 
 ### Generate Coverage Report
 

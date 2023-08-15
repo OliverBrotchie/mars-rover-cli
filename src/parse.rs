@@ -11,6 +11,7 @@ use nom::{
 
 use crate::enums::{Coordinate, Direction, Instruction};
 
+/// Parse a number as `isize`
 pub fn decimal(input: &str) -> IResult<&str, isize> {
     map_res(
         context(
@@ -21,10 +22,12 @@ pub fn decimal(input: &str) -> IResult<&str, isize> {
     )(input)
 }
 
+/// Parse a co-ordinate form a pair of numbers seperated by a space
 pub fn coordinate(input: &str) -> IResult<&str, (isize, isize)> {
     separated_pair(decimal, multispace1, decimal)(input)
 }
 
+/// Parse a direction (North, East, South or West)
 pub fn direction(input: &str) -> IResult<&str, Direction> {
     context(
         "direction",
@@ -38,6 +41,7 @@ pub fn direction(input: &str) -> IResult<&str, Direction> {
     .map(|(next_input, res)| (next_input, res.into()))
 }
 
+/// Parse an instruction (move, turn left or turn right)
 pub fn instruction(input: &str) -> IResult<&str, Instruction> {
     context(
         "instruction",
@@ -46,10 +50,12 @@ pub fn instruction(input: &str) -> IResult<&str, Instruction> {
     .map(|(next_input, res)| (next_input, res.into()))
 }
 
+/// Parse a starting position of a rover (co-ordinate + direction)
 pub fn starting_position(input: &str) -> IResult<&str, (Coordinate, Direction)> {
-    separated_pair(coordinate, multispace0, direction)(input)
+    separated_pair(coordinate, multispace1, direction)(input)
 }
 
+/// Parse a vector of instructions
 pub fn instruction_stream(input: &str) -> IResult<&str, Vec<Instruction>> {
     many1(terminated(instruction, multispace0))(input)
 }
