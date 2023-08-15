@@ -1,5 +1,5 @@
 [package]
-name = "mars-rover"
+name = "rover-cli"
 authors = ["Oliver Brotchie <o.brotchie@gmail.com>"]
 repository = "https://github.com/OliverBrotchie/mars-rover-cli"
 description = "A coding exercise in controlling a set of rovers on mars."
