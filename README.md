@@ -17,12 +17,12 @@ cargo install rover-cli
 **Print output to console:**
 
 ```sh
-rover-cli foo.csv
+rover-cli foo.txt
 ```
 
 **Save output to file:**
 ```sh
-rover-cli --output output.csv foo.csv
+rover-cli --output output.txt foo.txt
 ```
 
 **To see helpful information:**
